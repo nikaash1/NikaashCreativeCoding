@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Lesson_12_FastStart",
+            "request": "launch",
+            "mainClass": "Lesson_12_FastStart"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - code",
+            "request": "launch",
+            "mainClass": "code"
+        }
+    ]
+}
