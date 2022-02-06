@@ -27,10 +27,11 @@ var clickAlpha = 0; //click feedback
 var score = 0;
 
 function setup() {
-  background(0, 0, 0, 255);
   createCanvas(canvasWidth, canvasHeight);
   ellipseMode(CENTER);
   angleMode(DEGREES);
+  rectMode(CORNER);
+  rect(0, 0, canvasWidth, canvasHeight); //so black background doesnt fade
 }
 
 function draw() {
