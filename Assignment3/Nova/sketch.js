@@ -1,19 +1,27 @@
 var angle = 0;
-var angleIncrease = 0.001;
+var angleIncrease = 0.0001;
+var instructionsTime = 255;
+var bgFade = 255;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
   fill(0, 0, 0, 255);
   stroke(0, 0, 0, 0);
   rectMode(CORNER);
-  rect(0, 0, windowWidth, windowHeight); //so black background doesnt fade
+  rect(0, 0, windowWidth, windowHeight);
 }
 
 function draw(){
-  //loop counter
   var i;
-  background(0, 0, 0, 10); //for trail
-  //no outline
+  textSize(16);
+  fill(0, 0, 0, 100 + instructionsTime);
+  text("click to increase speed; press any key to decrease speed", -60 + windowWidth/2, -20 + windowHeight/2, 215, 100);
+  fill(255, 0, 0, instructionsTime);
+  text("click to increase speed; press any key to decrease speed", -60 + windowWidth/2, -20 + windowHeight/2, 215, 100);
+  background(0, 0, 0, bgFade);
+  if (bgFade < 10){
+    bgFade = 10;
+  }
   rotate(angle);
   stroke(0, 0, 0, 0);
   translate(windowWidth/2, windowHeight/2 - angle/2);
@@ -38,6 +46,11 @@ function draw(){
   if(mouseIsPressed){
     angleIncrease += 0.001;
   }
+  else if (keyIsPressed){
+    angleIncrease -= 0.001;
+  }
+  instructionsTime--;
+  bgFade--;
   angle += angleIncrease;
 }
 
