@@ -11,6 +11,7 @@ var moveGreen;
 var resetGreen;
 var moveAll;
 var resetAll;
+var mouseFollow;
 var menuToggle;
 var startButton;
 
@@ -24,6 +25,10 @@ var redColor = 0;
 var greenColor = 1;
 var blueColor = 2;
 
+var angle = 0;
+
+var following = false;
+var isReset = false;
 var started = false;
 
 //make it much easier to create a custom buttons
@@ -141,7 +146,9 @@ function setup() {
   resetBlue = new Button("reset blue", 22, 200, 190, 230, 80, 55, 5, 80, 0, 0, 255, 100, 1, 50, 3, 2);
   //for all orbs
   moveAll = new Button("move all", 35, 200, 87, 310, 105, 80, 10, 80, 255, 255, 255, 100, 1, 100, 5, 0);
-  resetAll = new Button("reset all", 32, 200, 196, 310, 90, 72, 5, 80, 255, 255, 255, 100, 1, 50, 5, 0);
+  resetAll = new Button("orbit center", 28, 200, 196, 310, 90, 72, 5, 80, 255, 255, 255, 100, 1, 50, 4, 5);
+  //make all orbs follow mouse
+  mouseFollow = new Button("follow mouse toggle", 20, 255, 140, 400, 230, 50, 30, 200, 40, 255, 255, 150, 2, 100, 5, 15);
   //to test activate/deactivate feature
   menuToggle = new Button("toggle buttons", 20, 200, canvasWidth - 100, canvasHeight - 50, 160, 40, 3, 100, 100, 0, 150, 100, 1, 50, 4, 10);
   //to start demo
@@ -157,9 +164,18 @@ function windowResized(){
 
 
 function draw() {
-  background(0);
-  if (started){
+  background(0, 0, 0, 255);
+  if (!started){
     menuScreen();
+    if(isReset){
+      translate(canvasWidth/2, canvasHeight/2);
+      angle += 0.08;
+    }
+    if(following){
+      push();
+      translate(mouseX - canvasWidth/2, mouseY - canvasHeight/2);
+    }
+    rotate(angle);
     redOrb.show();
     greenOrb.show();
     blueOrb.show();
@@ -192,18 +208,39 @@ function mouseReleased(){
   }
 
   if(resetRed.hovered){
-    redOrb.setPos(canvasWidth/2, canvasHeight/2);
+    redOrb.setPos(canvasWidth/2, -11 + canvasHeight/2);
   }
   if(resetGreen.hovered){
-    greenOrb.setPos(canvasWidth/2, canvasHeight/2);
+    greenOrb.setPos(-11 + canvasWidth/2, 11 + canvasHeight/2);
   }
   if(resetBlue.hovered){
-    blueOrb.setPos(canvasWidth/2, canvasHeight/2);
+    blueOrb.setPos(11 + canvasWidth/2, 11 + canvasHeight/2);
   }
   if(resetAll.hovered){
-    redOrb.setPos(canvasWidth/2, canvasHeight/2);
-    greenOrb.setPos(canvasWidth/2, canvasHeight/2);
-    blueOrb.setPos(canvasWidth/2, canvasHeight/2);
+    if(!isReset){
+      redOrb.setPos(0, -11);
+      greenOrb.setPos(-11, 11);
+      blueOrb.setPos(11, 11);
+      isReset = true;
+    }
+    else{
+      redOrb.setPos(canvasWidth/2, -11 + canvasHeight/2);
+      greenOrb.setPos(-11 + canvasWidth/2, 11 + canvasHeight/2);
+      blueOrb.setPos(11 + canvasWidth/2, 11 + canvasHeight/2);
+      isReset = false;
+    }
+  }
+  else{
+    isReset = false;
+  }
+
+  if(mouseFollow.hovered){
+    if(following){
+      following = false;
+    }
+    else{
+      following = true;
+    }
   }
 
   if(menuToggle.hovered){
@@ -216,6 +253,7 @@ function mouseReleased(){
       resetBlue.deactivate();
       moveAll.deactivate();
       resetAll.deactivate();
+      mouseFollow.deactivate();
     }
     else{
       moveRed.activate();
@@ -226,6 +264,7 @@ function mouseReleased(){
       resetBlue.activate();
       moveAll.activate();
       resetAll.activate();
+      mouseFollow.activate();
     }
   }
 
@@ -244,5 +283,6 @@ function menuScreen(){
   resetBlue.show();
   moveAll.show();
   resetAll.show();
+  mouseFollow.show();
   menuToggle.show();
 }
