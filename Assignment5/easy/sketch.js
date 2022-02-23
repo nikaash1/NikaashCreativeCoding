@@ -165,7 +165,7 @@ function windowResized(){
 
 function draw() {
   background(0, 0, 0, 255);
-  if (!started){
+  if (started){
     menuScreen();
     if(isReset){
       translate(canvasWidth/2, canvasHeight/2);
