@@ -12,6 +12,7 @@ var resetGreen;
 var moveAll;
 var resetAll;
 var menuToggle;
+var startButton;
 
 //orbs
 var redOrb;
@@ -22,6 +23,8 @@ var blueOrb;
 var redColor = 0;
 var greenColor = 1;
 var blueColor = 2;
+
+var started = false;
 
 //make it much easier to create a custom buttons
 class Button{
@@ -141,6 +144,8 @@ function setup() {
   resetAll = new Button("reset all", 32, 200, 196, 310, 90, 72, 5, 80, 255, 255, 255, 100, 1, 50, 5, 0);
   //to test activate/deactivate feature
   menuToggle = new Button("toggle buttons", 20, 200, canvasWidth - 100, canvasHeight - 50, 160, 40, 3, 100, 100, 0, 150, 100, 1, 50, 4, 10);
+  //to start demo
+  startButton = new Button("start", 120, 255, canvasWidth/2, canvasHeight/2, 300, 200, 50, 150, 150, 100, 255, 100, 8, 60, 13, 35);
 }
 
 function windowResized(){
@@ -153,10 +158,21 @@ function windowResized(){
 
 function draw() {
   background(0);
-  menuScreen();
-  redOrb.show();
-  greenOrb.show();
-  blueOrb.show();
+  if (started){
+    menuScreen();
+    redOrb.show();
+    greenOrb.show();
+    blueOrb.show();
+  }
+  else{
+    noStroke();
+    fill(150, 100, 255, 255);
+    textSize(24);
+    textStyle(BOLD);
+    textAlign(LEFT);
+    text("this is mainly a demo for a clickable button system", 30, canvasHeight - 150);
+    startButton.show();
+  }
 }
 
 function mouseReleased(){
@@ -211,6 +227,11 @@ function mouseReleased(){
       moveAll.activate();
       resetAll.activate();
     }
+  }
+
+  if(startButton.hovered){
+    startButton.deactivate();
+    started = true;
   }
 }
 
