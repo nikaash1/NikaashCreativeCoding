@@ -65,6 +65,7 @@ function setup() {
 function windowResized(){
   canvasWidth = windowWidth - 100;
   canvasHeight = windowHeight - 100;
+  canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.position((windowWidth - canvasWidth)/2, (windowHeight - canvasHeight)/2);
 }
 
@@ -73,7 +74,7 @@ function draw() {
   var xBody = [];
   var yBody = [];
 
-  image(bgImage, 0, 0, canvasWidth, canvasHeight);
+  image(bgImage, 0, 0, canvasWidth + 50, canvasHeight + 50);
   background(0 + bgFade/4, 0 + bgFade/2, 0 + bgFade*2, 255 - pow(bgFade, 2)/100);
 
   //display score
