@@ -36,7 +36,6 @@ var started = false;
 
 let x = [];
 let y = [];
-let distances = [];
 
 for (let maxScore = 0; maxScore < 10000; maxScore++) {
   x[maxScore] = 0;
@@ -155,17 +154,7 @@ function draw() {
     }
     snakeSegment(i + 1, x[i], y[i], snakeThickness - i/snakeSize, snakeThickness/2 - i*20/snakeSize);
   }
-  for(let i = 0; i < snakeSize - 1; i++){
-    distances[i] = dist(x[i], y[i], xVal[counter], yVal[counter]);
-    if(score >= 0){
-      if(distances[i] <= 15){
-        lost = true;
-      }
-      else{
-        lost = false;
-      }
-    }
-  }
+
   strokeWeight(2 + appleColor/5);
   stroke(50, 70, 60, 20);
   fill(20 + appleColor, 20, 100, 50);
