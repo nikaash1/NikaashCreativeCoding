@@ -239,10 +239,10 @@ function draw() {
   }
   else if(frequency >= 100){
     if(move >= 10){
-      move -= 3*frequency/30;
+      move -= 3*frequency/100;
     }
     else{
-      move += 1*frequency/50;
+      move += 1*frequency/120;
     }
   }
   else{
