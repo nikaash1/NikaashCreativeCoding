@@ -186,6 +186,8 @@ var piano;
 
 var frequency = 0;
 
+var move = 0;
+
 var scalesAmount = 2;
 
 var synth;
@@ -219,12 +221,36 @@ function draw() {
 
       fill(r + y*2, g - x - y, b + x*3 - y*5, 255);
       strokeWeight(10 - brightness + frequency/50);
-      stroke(x + r/30, g/30, y + b, 255);
+      stroke(x - move + r/30, g/30, y + b, 255);
       fill(r + y*2, g - x - y + frequency/30, b + x*3 - y*5, 255);
-      ellipse(x*vScale - (frequency - 200)/30, y*vScale + frequency/300, 2 + brightness/20, 2 + frequency/400 + brightness/20);
+      ellipse(x*vScale + move*2 - (frequency - 200)/30, y*vScale + frequency/300, 2 + brightness/20, 2 + frequency/400 + brightness/20);
       noStroke();
       fill(r + y*2, g - x - y, b + x*3 - y*5, 30 - r/b + g);
-      rect(x*vScale + (frequency - 200)/30, y*vScale, 1 + frequency/20 + brightness/40, 1 + brightness/40);
+      rect(x*vScale + (frequency - 200)/30, y*vScale - move*3, 1 + frequency/20 + brightness/40, 1 + brightness/40);
+    }
+  }
+  if (frequency >= 400){
+    if(move >= 30){
+      move -= 10;
+    }
+    else{
+      move += 15
+    }
+  }
+  else if(frequency >= 100){
+    if(move >= 10){
+      move -= 3*frequency/30;
+    }
+    else{
+      move += 1*frequency/50;
+    }
+  }
+  else{
+    if(move > 0){
+      move -= 0.1;
+    }
+    else{
+      move = 0;
     }
   }
   piano.keySelectHighlight(mouseX, mouseY, 50);
