@@ -1,3 +1,7 @@
+var canvasWidth = 720;
+var canvasHeight = 540;
+var canvas;
+
 var keyWhite = 0;
 var keyBlack = 1;
 
@@ -10,6 +14,56 @@ var blackHeight = 75*keyScale;
 var whiteKeys = [];
 var blackKeys = [];
 var allKeys = [];
+
+class Orb{
+  constructor(){
+    this.x = canvasWidth/2;
+    this.y = canvasHeight/2;
+    this.size = 1;
+    this.red = 255;
+    this.green = 0;
+    this.blue = 0;
+    this.alpha = 255;
+  }
+  setPos(x, y){
+    this.x = x;
+    this.y = y;
+  }
+  setSize(size){
+    this.size = size;
+  }
+  setColor(red, green, blue, alpha){
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+    this.alpha = alpha;
+  }
+  show(){
+    for (let i = 0; i <= 50; i++){
+      noStroke();
+      ellipseMode(CENTER);
+      fill(i*5 + this.red, i*5 + this.green, i*5 + this.blue, i*2);
+      ellipse(this.x, this.y, 30 - i/2, 30 - i/2);
+    }
+  }
+}
+
+/*class Node{
+  constructor(){
+    this.note = 60;
+    this.frequency = midiToFreq(60);
+  }
+  setNote(note){
+    this.note = note;
+    this.frequency = midiToFreq(note);
+  }
+  updatePitch(){
+    if(this.note % 1 != 0){
+      this.note 
+    }
+  }
+
+}*/
 
 class Key{
   constructor(x, y, type){
@@ -174,19 +228,19 @@ class Piano{
   }
 }
 
-var canvasWidth = 720;
-var canvasHeight = 540;
-var canvas;
+
 
 var video;
 
-var vScale = 20;
+var vScale = 12;
 
 var piano;
 
 var frequency = 0;
 
 var move = 0;
+
+var sinVar = 0;
 
 var scalesAmount = 2;
 
@@ -195,6 +249,8 @@ var synth;
 function setup() {
   rectMode(CORNER);
   ellipseMode(CORNER);
+  angleMode(DEGREES);
+  frameRate(60);
   canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.position((windowWidth - canvasWidth)/2, (windowHeight - canvasHeight)/2);
   video = createCapture(VIDEO);
@@ -202,16 +258,21 @@ function setup() {
   pixelDensity(1);
   video.size(canvasWidth/vScale, canvasHeight/vScale);
   video.hide();
-  piano = new Piano((canvasWidth - scalesAmount*7*40)/2, 10, scalesAmount);
-  synth = new p5.TriOsc();
-  env = new p5.Envelope();
+  ball = new Orb();
+  //piano = new Piano((canvasWidth - scalesAmount*7*40)/2, 10, scalesAmount);
+  //synth = new p5.TriOsc();
+  //env = new p5.Envelope();
 }
 
 function draw() {
   background(0 + pow(frequency/50, 2), 0 - frequency/30, 0 + frequency/50, 255);
   video.loadPixels();
-  for(var x = 0; x < video.width; x++){
+  var posChange;
+  ball.show();
+
+  /*for(var x = 0; x < video.width; x++){
     for(var y = 0; y < video.height; y++){
+      posChange = frequency*sin(5*sinVar*x/4)/5;
       var index = (x + y*video.width)*4;
       var r = video.pixels[index];
       var g = video.pixels[index + 1];
@@ -226,7 +287,8 @@ function draw() {
       ellipse(x*vScale + move*2 - (frequency - 200)/30, y*vScale + frequency/300, 2 + brightness/20, 2 + frequency/400 + brightness/20);
       noStroke();
       fill(r + y*2, g - x - y, b + x*3 - y*5, 30 - r/b + g);
-      rect(x*vScale + (frequency/x - 200)/30, y*vScale - move*3, 1 + frequency/20 + brightness/40, 1 + brightness/40);
+      rect(x*vScale + (frequency/x - 200)/30, y*vScale + posChange - move*3, 1 + frequency/20 + brightness/40, 1 + brightness/40);
+      sinVar += 0.5;
     }
   }
   if (frequency >= 400){
@@ -246,15 +308,15 @@ function draw() {
     }
   }
   else{
-    if(move > 0){
-      move -= 0.1;
+    if(move > 3){
+      move -= 0.5;
     }
     else{
-      move = 0;
+      move = 0.2;
     }
   }
   piano.keySelectHighlight(mouseX, mouseY, 50);
-  piano.show();
+  piano.show();*/
 }
 
 function windowResized(){
@@ -263,14 +325,14 @@ function windowResized(){
 }
 
 function mousePressed(){
-  var midiVal = piano.getKey() + 60;
+  /*var midiVal = piano.getKey() + 60;
   if(piano.allSelected(mouseX, mouseY)){
     synth.start();
     frequency = midiToFreq(midiVal);
     synth.freq(frequency);
     env.ramp(synth, 0, 1, 0);
   }
-  userStartAudio();
+  userStartAudio();*/
 }
 
 function mouseReleased(){

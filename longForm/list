@@ -1,0 +1,4 @@
+orbs change color with time, reset at collection
+if orb collected within close to proper timing, score increases, note is played
+if not, point is lost, bad pitch is played
+
