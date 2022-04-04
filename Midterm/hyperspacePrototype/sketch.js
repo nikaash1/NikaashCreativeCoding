@@ -133,7 +133,7 @@ function draw() {
   synthPitch = midiToFreq(synthVal);
   volume = (1 + sin(sinConst))/2;
   synth.freq(synthPitch);
-  synth.amp(1);
+  synth.amp(1 - orbTimer/200);
   effect.freq(midiToFreq(synthVal + 12));
   effect.amp(volume*2);
   player.moveX(mouseX);
@@ -204,6 +204,7 @@ function draw() {
   fill(255, 255, 255, 255);
   text(parseInt(score), canvasWidth - 140, 100);
   orb.setColor(255 - orbChanger*255, 0, 0 + orbChanger*255, 255);
+  orbSize += volume - 0.5;
   orb.show();
   orb.setSize(orbSize);
   player.show();
@@ -212,6 +213,7 @@ function draw() {
     score = 0;
     synth.amp(0);
     effect.amp(0);
+    tint(255, 255, 255, 255);
     image(video, 0, 0, canvasWidth, canvasHeight);
     textStyle(BOLD);
     textSize(20);
