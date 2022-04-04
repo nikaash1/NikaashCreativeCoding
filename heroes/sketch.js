@@ -12,7 +12,7 @@ var classifier;
 var faceTracker;
 var faceDetection;
 
-var faceX = 0
+var faceX = 0;
 var faceY = 0;
 var faceWidth = 0;
 var faceHeight = 0;
@@ -43,7 +43,7 @@ function preload(){
   spiderSymbol = loadImage('spiderLogo.png');
   spiderMask = loadImage('spiderMask.png');
   ironMask = loadImage('ironMask.png');
-  classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/Cq9yQcCDG/model.json')
+  classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/Cq9yQcCDG/model.json');
 }
 
 function setup(){
