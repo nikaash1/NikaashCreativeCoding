@@ -12,7 +12,7 @@ var classifier;
 var faceTracker;
 var faceDetection;
 
-var faceX = 0;
+var faceX = 0
 var faceY = 0;
 var faceWidth = 0;
 var faceHeight = 0;
@@ -43,28 +43,25 @@ function preload(){
   spiderSymbol = loadImage('spiderLogo.png');
   spiderMask = loadImage('spiderMask.png');
   ironMask = loadImage('ironMask.png');
-  classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/Cq9yQcCDG/model.json');
+  classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/Cq9yQcCDG/model.json')
 }
 
 function setup(){
-  //frameRate(12);
+  frameRate(12);
+  canvas = createCanvas(canvasWidth, canvasHeight);
+  canvas.position((windowWidth - canvasWidth)/2, (windowHeight - canvasHeight)/2);
   video = createCapture(VIDEO);
   video.position((windowWidth - canvasWidth)/2, (windowHeight - canvasHeight)/2);
   pixelDensity(1);
   video.size(canvasWidth, canvasHeight);
-  //video.hide();
-  canvas = createCanvas(canvasWidth, canvasHeight);
-  canvas.position((windowWidth - canvasWidth)/2, (windowHeight - canvasHeight)/2);
-  
+  video.hide();
   faceTracker = ml5.faceApi(video);
 }
 
 function draw() {
-  //background(0, 0, 0, 10);
-  canvas.clear();
-  //canvas.reset();
+  background(0, 0, 0, 255);
   imageMode(CORNER);
-  //image(video, 0, 0, canvasWidth, canvasHeight);
+  image(video, 0, 0, canvasWidth, canvasHeight);
   textSize(20);
   fill(255, 0, 0, 255);
   text(spiderMan, 50, 50);

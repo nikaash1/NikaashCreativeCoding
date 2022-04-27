@@ -137,7 +137,7 @@ function draw() {
   effect.freq(midiToFreq(synthVal + 12));
   effect.amp(volume*2);
   player.moveX(mouseX);
-  player.moveY(mouseY)
+  player.moveY(mouseY);
 
   if ((player.checkDistFrom(orb.x, orb.y)) < 20){
     orbTimer = 0;
@@ -248,11 +248,11 @@ function orientPlayer(x, y) {
   rectMode(CENTER);
   ellipseMode(CENTER);
   scale(0.5);
-  fill(120, 120, 120, 255)
+  fill(120, 120, 120, 255);
   rect(30, 36, 35, 13, 3, 3);
-  fill(100, 100, 100, 255)
+  fill(100, 100, 100, 255);
   rect(40, 0, 30, 40);
-  fill(120, 120, 120, 255)
+  fill(120, 120, 120, 255);
   triangle(-10, 13, -10, 45, 80, 13);
   triangle(-10, -13, -10, -45, 80, -13);
   fill(150, 150, 150, 255);
